@@ -2,20 +2,22 @@
 <html>
 <head>
   <meta charset="utf-8">
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
   <title>api_sample</title>
   <style>
       table {
-          border-collapse: collapse;
-      }
-      td {
-          border: solid 1px #000;
-          padding: 10px;
       }
   </style>
 </head>
 <body>
-    <h1>API</h1>
+    <h1>Redux Blog Post API Reference</h1>
     <table>
+        <tr>
+            <td>Method</td>
+            <td>Example</td>
+            <td>Check</td>
+        </tr>
         <tr>
             <td>GET</td>
             <td>http://reduxblog.herokuapp.com/api/posts</td>
@@ -37,15 +39,41 @@
             <td><input type="button" id="delete" >DELETE</input></td>
         </tr>
     </table>
-    <div class="getSection">
-    </div>
-    <div class="postSection">
-        <form name="fm">
-            <input type="text" name="textTitle" id="title" placeholder="title" value="">
-            <input type="text" name="textCategory" id="categories" placeholder="category" value="">
-            <input type="text" name="textContent" id="content" placeholder="text" value="">
-            <input type="button" id="btn">submit</input>
-        </form>
+    <div id="section">
+        <!-- get -->
+        <div class="getSection section_title">
+        <h2>GET</h2>
+        </div>
+
+        <!-- post -->
+        <div class="postSection clearfix section_title">
+            <h2>POST</h2>
+            <form name="fm">
+                <input type="text" name="textTitle" id="title" placeholder="title" value="" size="40" class="text-area">
+                <input type="text" name="textCategory" id="categories" placeholder="category" value="" size="40" class="text-area">
+                <input type="text" name="textContent" id="content" placeholder="text" value=""　size="40" class="text-area">
+            </form>
+        </div>
+        <div class="post-sec"></div>
+
+        <!-- getId -->
+        <div class="getIdSection clearfix section_title">
+            <h2>GET ID</h2>
+            <form name="fm2">
+                <input type="text" id="number" placeholder="id" class="text-area">
+            </form>
+        </div>
+        <div class="getId-sec"></div>
+
+        <!-- delete -->
+        <div class="deleteSection clearfix section_title">
+            <h2>DELETE</h2>
+            <form name="fm3">
+                <input type="text" id="number2" placeholder="id" class="text-area">
+            </form>
+        </div>
+        <div class="delete-sec">
+        </div>
     </div>
   <script src = "api.js"></script>
 </body>

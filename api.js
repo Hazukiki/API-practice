@@ -1,5 +1,10 @@
 const key = 'abcd';
 const url = 'http://reduxblog.herokuapp.com/api/posts?abcd/';
+
+// ========================================================
+// GET
+// ========================================================
+
 function get() {
     let method = 'GET';
     const data = {
@@ -20,15 +25,15 @@ function get() {
     })
     .then(data => {
         console.log("GET: ",data);
-        data.forEach(post => {
-            const eachPost = `
-                <li>
-                    <h2>${post.title}</h2>
-                    <p>ID: &nbsp;${post.id}</p>
-                    <p>Content: &nbsp;${post.content}</p>
+        data.forEach(get => {
+            const eachGet = `
+                <li class="clearfix">
+                    <p>${get.title}</p>
+                    <p>ID: &nbsp;${get.id}</p>
+                    <p>Content: &nbsp;${get.content}</p>
                 </li>
             `;
-            postContainer.insertAdjacentHTML('beforeend', eachPost);
+            postContainer.insertAdjacentHTML('beforeend', eachGet);
         }
     )
     })
@@ -37,17 +42,13 @@ function get() {
 
 document.querySelector('#get').addEventListener('click', get)
 
-//POST
-document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('btn').addEventListener('click', function() {
-        let name = document.getElementById('title');
-        console.log(name.value);
-    }, false)
-}, false);
+// ========================================================
+// POST
+// ========================================================
 
 function post() {
     const method = 'POST';
-    const data = {
+    const postData = {
         title: title.value,
         categories: categories.value,
         content: content.value
@@ -67,7 +68,7 @@ function post() {
     // })
     // .catch(function(error) {console.error(error)})
 
-  const body = JSON.stringify(data);
+  const body = JSON.stringify(postData);
 
   const headers = {
     'Accept': 'application/json',
@@ -75,9 +76,16 @@ function post() {
   };
   fetch(url, {method, headers, body}).then(function(response) {
     return response.json();
-  }).then(function(data) {
-    console.log(data);
-
+}).then(function(postData) {
+     let sec = document.querySelector('.post-sec');
+     const eachPost = `
+         <li class="clearfix one">
+             <p>${postData.title}</p>
+             <p>ID: &nbsp;${postData.id}</p>
+             <p>Content: &nbsp;${postData.content}</p>
+         </li>
+     `;
+     sec.innerHTML = eachPost;
   }).catch(function(error) {
     console.log(error);
   });
@@ -85,20 +93,24 @@ function post() {
 
 document.querySelector('#post').addEventListener('click', post)
 
-console.log(document.querySelector('#title').value);
 
+// ========================================================
+// GET BY ID
+// ========================================================
+const idInput = document.getElementById('number');
+let postID;
+let url2;
 
-const url2= 'http://reduxblog.herokuapp.com/api/posts/237275?abcd/';
+idInput.addEventListener('input', (event) => {
+    postID = event.target.value;
+    url2= 'http://reduxblog.herokuapp.com/api/posts/' + postID + '?abcd/';
+});
+
 
 //getid
 function getId() {
     let method = 'GET';
-    const data3 = {
-        title: 'hello',
-        categories: 'foo',
-        content: 'bar'
-    };
-    const requestBody = JSON.stringify(data3);
+
     const headers = {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
@@ -106,35 +118,54 @@ function getId() {
     fetch(url2, {method}).then(response => {
         return response.json();
     })
-    .then(data3 => {
-        console.log("GETID: ",data3);
+    .then(getIdData => {
+
+        const postContainer2 = document.querySelector('.getId-sec');
+            const eachId = `
+                <li class="clearfix one">
+                    <p>${data3.title}</p>
+                    <p>ID: &nbsp;${data3.id}</p>
+                    <p>Content: &nbsp;${data3.content}</p>
+                </li>
+            `;
+            postContainer2.insertAdjacentHTML('beforeend', eachId);
     })
     .catch(error => console.error(error))
 }
 
 document.querySelector('#get2').addEventListener('click', getId)
 
-
+// ========================================================
 // DELETE
-const url3= 'http://reduxblog.herokuapp.com/api/posts/237237?abcd/';
+// ========================================================
+const idInput_del = document.getElementById('number2');
+let postID2;
+let url3;
+idInput_del.addEventListener('input', (event) => {
+    postID2 = event.target.value;
+    url3= 'http://reduxblog.herokuapp.com/api/posts/' + postID2 + '?abcd/';
+});
 
 function del() {
     let method = 'DELETE';
-    const data3 = {
+    const delData = {
         title: 'hello',
         categories: 'foo',
         content: 'bar'
     };
-    const requestBody = JSON.stringify(data3);
+    const requestBody = JSON.stringify(delData);
     const headers = {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
     }
-    fetch(url2, {method}).then(response => {
+    fetch(url3, {method}).then(response => {
         return response.json();
     })
-    .then(data3 => {
-        console.log("DELETE: ",data3);
+    .then(delData => {
+        console.log("DELETE: ",delData);
+        let result = document.getElementsByClassName('delete-sec');
+        window.alert('削除しました!');
+        console.log(result);
     })
     .catch(error => console.error(error))
 }
